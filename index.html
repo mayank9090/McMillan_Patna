@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McMillan Patna | Mandapada Youth Cricket Club</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Outfit:wght@400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        :root { 
+            --gold: #C5A059; 
+            --navy: #050C16; 
+            --gold-glow: rgba(197, 160, 89, 0.3); 
+            --bg-white: #FFFFFF;
+            --bg-light: #F8F9FA;
+        }
+
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: var(--bg-white); 
+            color: var(--navy); 
+            margin: 0; 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+        }
+
+        .font-premium { 
+            font-family: 'Syncopate', sans-serif; 
+        }
+        
+        .gold-gradient { 
+            background: linear-gradient(135deg, #C5A059 0%, #B38B45 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+
+        .gold-bg { 
+            background: linear-gradient(135deg, #C5A059 0%, #B38B45 100%); 
+        }
+
+        .glass-header { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(12px); 
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05); 
+        }
+
+        #squad-section {
+            scroll-margin-top: 100px;
+        }
+
+        .player-card-premium {
+            background: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 140px;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            pointer-events: none; 
+            user-select: none;
+        }
+
+        .jersey-number-bg {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 100px;
+            font-weight: 900;
+            color: rgba(5, 12, 22, 0.03); 
+            line-height: 1;
+            z-index: 1;
+            font-family: 'Syncopate', sans-serif;
+        }
+
+        .player-img-container {
+            width: 45%;
+            height: 100%;
+            position: relative;
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+            background: #F3F4F6;
+            z-index: 2;
+        }
+
+        .player-info-container {
+            width: 55%;
+            padding-left: 20px;
+            position: relative;
+            z-index: 3; 
+        }
+
+        .status-tag {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 2px 10px;
+            font-size: 7px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* AUTO-SCROLLER STYLING */
+        .supporter-swiper {
+            width: 100%;
+            padding: 10px 0;
+            pointer-events: none;
+        }
+
+        .supporter-swiper .swiper-wrapper {
+            transition-timing-function: linear !important;
+        }
+
+        .supporter-chip-premium {
+            background: #FFFFFF;
+            border: 1px solid rgba(5, 12, 22, 0.08);
+            padding: 14px 30px;
+            border-radius: 50px;
+            white-space: nowrap;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 10px;
+            color: var(--navy);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* FOOTER LINK HOVER */
+        .footer-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .footer-link:hover {
+            color: var(--gold);
+            padding-left: 5px;
+        }
+
+        @keyframes fadeInUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        .animate-reveal { 
+            animation: fadeInUp 0.7s ease-out forwards; 
+        }
+
+        .swiper-prev, .swiper-next {
+            pointer-events: auto !important;
+            color: var(--navy);
+        }
+
+        /* PREMIUM SOCIAL ICON STYLING */
+        .social-icon-btn {
+            height: 40px; width: 40px; border-radius: 50%; border: 1px solid rgba(5, 12, 22, 0.1);
+            display: flex; align-items: center; justify-content: center; font-size: 16px; color: #050C16;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: transparent;
+        }
+
+        .social-icon-btn:hover {
+            background: var(--gold); color: #FFFFFF; border-color: var(--gold);
+            transform: translateY(-5px); box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2);
+        }
+
+        /* LEADERSHIP SECTION STYLES */
+        .leadership-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            border: 1px solid rgba(5, 12, 22, 0.05);
+            transition: all 0.4s ease;
+        }
+        .leadership-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="fixed w-full z-[100] glass-header">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 md:h-24 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2 md:gap-4 min-w-0">
+                <img src="https://i.postimg.cc/tJ6J8FC1/logo.png" alt="McMillan Logo" class="h-12 md:h-16 w-auto flex-shrink-0">
+                <div class="flex flex-col min-w-0">
+                    <h1 class="font-premium text-[12px] md:text-xl font-bold tracking-tighter text-[#050C16] leading-none truncate uppercase">
+                        McMILLAN <span class="gold-gradient">PATNA</span>
+                    </h1>
+                    <p class="text-[7px] md:text-[9px] font-bold tracking-[2px] md:tracking-[4px] text-[#C5A059] uppercase mt-1 truncate">
+                        Cricket Club
+                    </p>
+                </div>
+            </div>
+            <div class="flex-shrink-0">
+                <a href="Https://wa.me/message/6CJSZSPPROGGK1" target="_blank" class="gold-bg text-white px-4 py-2 md:px-7 md:py-3 rounded-sm font-black text-[10px] md:text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all inline-block">
+                    Join Now
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 md:pt-48 pb-16 overflow-hidden bg-white">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-10"></div>
+            <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2000" class="w-full h-full object-cover opacity-10" alt="Cricket Field">
+        </div>
+        <div class="container mx-auto px-6 relative z-20">
+            <div class="max-w-3xl animate-reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-sm bg-[#C5A059]/10 border border-[#C5A059]/30">
+                    <span class="text-[#C5A059] font-bold tracking-[3px] text-[10px] uppercase">Reviving the Heritage of Mandapada</span>
+                </div>
+                <h2 class="text-5xl md:text-8xl font-black uppercase leading-[0.9] mb-6 text-[#050C16]">
+                    ROOTS OF <br> <span class="gold-gradient">THE SOIL</span>
+                </h2>
+                <p class="text-gray-500 text-sm md:text-lg mb-10 max-w-xl leading-relaxed">
+                    McMillan Patna is the historical identity of Mandapada. Our club is built to give the new generation a chance to represent our soil and shine on the cricket field.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="Https://wa.me/message/6CJSZSPPROGGK1" target="_blank" class="gold-bg text-white px-12 py-4 font-black uppercase text-xs tracking-widest shadow-xl hover:scale-105 transition-transform text-center inline-block">
+                        Join the Legacy
+                    </a>
+                    <button onclick="document.getElementById('squad-section').scrollIntoView({behavior: 'smooth'})" class="border-2 border-[#050C16]/10 bg-[#050C16]/5 px-12 py-4 font-black uppercase text-xs tracking-widest hover:bg-[#050C16]/10 hover:border-[#C5A059] transition-all text-[#050C16]">
+                        Our Squad
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-4 relative z-30 bg-white">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gray-50 p-8 border border-[#050C16]/5 rounded-lg group hover:border-[#C5A059] transition-colors shadow-sm">
+                <span class="text-[#C5A059] font-black text-4xl opacity-20 mb-4 block">01</span>
+                <h3 class="text-xl font-bold uppercase tracking-widest mb-2 text-[#050C16]">Heritage</h3>
+                <p class="text-sm text-gray-400">Honoring Mandapada's ancient identity as McMillan Patna.</p>
+            </div>
+            <div class="bg-gray-50 p-8 border border-[#050C16]/5 rounded-lg group hover:border-[#C5A059] transition-colors shadow-sm">
+                <span class="text-[#C5A059] font-black text-4xl opacity-20 mb-4 block">02</span>
+                <h3 class="text-xl font-bold uppercase tracking-widest mb-2 text-[#050C16]">Next Gen</h3>
+                <p class="text-sm text-gray-400">Focused on giving local youth a fair platform to play.</p>
+            </div>
+            <div class="bg-gray-50 p-8 border border-[#050C16]/5 rounded-lg group hover:border-[#C5A059] transition-colors shadow-sm">
+                <span class="text-[#C5A059] font-black text-4xl opacity-20 mb-4 block">03</span>
+                <h3 class="text-xl font-bold uppercase tracking-widest mb-2 text-[#050C16]">Unity</h3>
+                <p class="text-sm text-gray-400">Building a brotherhood through the spirit of cricket.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="squad-section" class="py-20 px-4 bg-[#F9FAFB] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <div class="inline-block bg-[#C5A059]/10 border-l-4 border-[#C5A059] px-4 py-1 mb-4">
+                        <span class="text-[#C5A059] font-bold tracking-[3px] text-[10px] uppercase">Founding Squad 2026</span>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#050C16]">
+                        Our <span class="gold-gradient">Players</span>
+                    </h2>
+                </div>
+                <div class="flex gap-2">
+                    <div class="swiper-prev bg-white border border-[#050C16]/5 p-3 cursor-pointer hover:bg-[#C5A059] hover:text-white transition-all shadow-sm">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>
+                    </div>
+                    <div class="swiper-next bg-white border border-[#050C16]/5 p-3 cursor-pointer hover:bg-[#C5A059] hover:text-white transition-all shadow-sm">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper playerSwiper">
+                <div class="swiper-wrapper">
+                    
+                    <div class="swiper-slide">
+                        <div class="player-card-premium">
+                            <span class="jersey-number-bg">03</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Mayank</h4>
+                                <p class="text-[#C5A059] text-[9px] font-bold uppercase tracking-[2px]">All Rounder</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag gold-bg text-white">Main XI</span>
+                                <img src="https://i.postimg.cc/jjQKgW2n/1774620115398.png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium">
+                            <span class="jersey-number-bg">06</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Anurag</h4>
+                                <p class="text-[#C5A059] text-[9px] font-bold uppercase tracking-[2px]">All Rounder</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag gold-bg text-white">Main XI</span>
+                                <img src="https://i.postimg.cc/ryWHT6MN/1774620115398-(1).png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium">
+                            <span class="jersey-number-bg">17</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Aryan</h4>
+                                <p class="text-[#C5A059] text-[9px] font-bold uppercase tracking-[2px]">All Rounder</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag gold-bg text-white">Main XI</span>
+                                <img src="https://i.postimg.cc/Vs4R0h39/1774620115398-(2).png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium">
+                            <span class="jersey-number-bg">08</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Abhinash</h4>
+                                <p class="text-[#C5A059] text-[9px] font-bold uppercase tracking-[2px]">Bowler</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag gold-bg text-white">Main XI</span>
+                                <img src="https://i.postimg.cc/G26svkJK/1774620115398-(3).png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium">
+                            <span class="jersey-number-bg">02</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Susant</h4>
+                                <p class="text-[#C5A059] text-[9px] font-bold uppercase tracking-[2px]">All Rounder</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag gold-bg text-white">Main XI</span>
+                                <img src="https://i.postimg.cc/59vXZQmQ/1774620115398-(5).png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium">
+                            <span class="jersey-number-bg">100</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Himanshu</h4>
+                                <p class="text-[#C5A059] text-[9px] font-bold uppercase tracking-[2px]">All Rounder</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag gold-bg text-white">Main XI</span>
+                                <img src="https://i.postimg.cc/gkJfx8Bb/1774620115398-(6).png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium">
+                            <span class="jersey-number-bg">09</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Rahul</h4>
+                                <p class="text-[#C5A059] text-[9px] font-bold uppercase tracking-[2px]">Bowler</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag gold-bg text-white">Main XI</span>
+                                <img src="https://i.postimg.cc/y8hXBrX9/1774620115398-(7).png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium">
+                            <span class="jersey-number-bg">07</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Ajit</h4>
+                                <p class="text-[#C5A059] text-[9px] font-bold uppercase tracking-[2px]">All Rounder</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag gold-bg text-white">Main XI</span>
+                                <img src="https://i.postimg.cc/SsngyfxD/1774620115398-(4).png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium">
+                            <span class="jersey-number-bg">24</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Tony</h4>
+                                <p class="text-[#C5A059] text-[9px] font-bold uppercase tracking-[2px]">All Rounder</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag gold-bg text-white">Main XI</span>
+                                <img src="https://i.postimg.cc/yYDswMK8/1774620115398-(8).png" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium">
+                            <span class="jersey-number-bg">10</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Sudhanshu</h4>
+                                <p class="text-[#C5A059] text-[9px] font-bold uppercase tracking-[2px]">Bowler</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag gold-bg text-white">Main XI</span>
+                                <img src="https://via.placeholder.com/300x400/F3F4F6/C5A059?text=10" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium">
+                            <span class="jersey-number-bg">108</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Abhinab</h4>
+                                <p class="text-[#C5A059] text-[9px] font-bold uppercase tracking-[2px]">All Rounder</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag gold-bg text-white">Main XI</span>
+                                <img src="https://via.placeholder.com/300x400/F3F4F6/C5A059?text=11" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium opacity-70">
+                            <span class="jersey-number-bg">14</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Abhishek</h4>
+                                <p class="text-gray-400 text-[9px] font-bold uppercase tracking-[2px]">All Rounder</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag bg-gray-400 text-white">Reserve</span>
+                                <img src="https://via.placeholder.com/300x400/F3F4F6/999999?text=R1" class="w-full h-full object-cover grayscale">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium opacity-70">
+                            <span class="jersey-number-bg">19</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Varun</h4>
+                                <p class="text-gray-400 text-[9px] font-bold uppercase tracking-[2px]">Bowler</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag bg-gray-400 text-white">Reserve</span>
+                                <img src="https://via.placeholder.com/300x400/F3F4F6/999999?text=R2" class="w-full h-full object-cover grayscale">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium opacity-70">
+                            <span class="jersey-number-bg">22</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Shaan</h4>
+                                <p class="text-gray-400 text-[9px] font-bold uppercase tracking-[2px]">Bowler</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag bg-gray-400 text-white">Reserve</span>
+                                <img src="https://via.placeholder.com/300x400/F3F4F6/999999?text=R3" class="w-full h-full object-cover grayscale">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium opacity-70">
+                            <span class="jersey-number-bg">36</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Prince</h4>
+                                <p class="text-gray-400 text-[9px] font-bold uppercase tracking-[2px]">Bowler</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag bg-gray-400 text-white">Reserve</span>
+                                <img src="https://via.placeholder.com/300x400/F3F4F6/999999?text=R4" class="w-full h-full object-cover grayscale">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium opacity-70">
+                            <span class="jersey-number-bg">29</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Som</h4>
+                                <p class="text-gray-400 text-[9px] font-bold uppercase tracking-[2px]">Extra</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag bg-gray-400 text-white">Reserve</span>
+                                <img src="https://via.placeholder.com/300x400/F3F4F6/999999?text=R5" class="w-full h-full object-cover grayscale">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium opacity-70">
+                            <span class="jersey-number-bg">96</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Tingu</h4>
+                                <p class="text-gray-400 text-[9px] font-bold uppercase tracking-[2px]">Extra</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag bg-gray-400 text-white">Reserve</span>
+                                <img src="https://via.placeholder.com/300x400/F3F4F6/999999?text=R6" class="w-full h-full object-cover grayscale">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="player-card-premium opacity-70">
+                            <span class="jersey-number-bg">76</span>
+                            <div class="player-info-container">
+                                <h4 class="font-black text-lg uppercase truncate text-[#050C16]">Sana</h4>
+                                <p class="text-gray-400 text-[9px] font-bold uppercase tracking-[2px]">Extra</p>
+                            </div>
+                            <div class="player-img-container">
+                                <span class="status-tag bg-gray-400 text-white">Reserve</span>
+                                <img src="https://via.placeholder.com/300x400/F3F4F6/999999?text=R7" class="w-full h-full object-cover grayscale">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-white border-t border-[#050C16]/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-12 text-center md:text-left">
+                <div class="inline-block bg-[#C5A059]/10 border-l-4 border-[#C5A059] px-4 py-1 mb-4">
+                    <span class="text-[#C5A059] font-bold tracking-[3px] text-[10px] uppercase">Leadership Team</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#050C16]">
+                    Club <span class="gold-gradient">Commanders</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="leadership-card p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+                    <div class="w-32 h-32 md:w-44 md:h-44 rounded-full overflow-hidden border-4 border-white shadow-xl flex-shrink-0 bg-gray-100">
+                        <img src="https://i.postimg.cc/jjQKgW2n/1774620115398.png" alt="Captain Photo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="text-center md:text-left flex-grow">
+                        <span class="gold-bg text-white text-[8px] font-black uppercase tracking-[2px] px-3 py-1 rounded-full">The Captain</span>
+                        <h3 class="text-2xl md:text-3xl font-black uppercase text-[#050C16] mt-3">Mayank</h3>
+                        <p class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-6">Leading McMillan Patna's Legacy</p>
+                        
+                        <a href="https://wa.me/917846986313" target="_blank" class="inline-flex items-center gap-3 bg-[#25D366] text-white px-6 py-3 rounded-sm text-[10px] font-black uppercase tracking-widest hover:shadow-lg transition-all active:scale-95">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp Now
+                        </a>
+                    </div>
+                </div>
+
+                <div class="leadership-card p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+                    <div class="w-32 h-32 md:w-44 md:h-44 rounded-full overflow-hidden border-4 border-white shadow-xl flex-shrink-0 bg-gray-100">
+                        <img src="https://i.postimg.cc/yYDswMK8/1774620115398-(8).png" alt="Vice Captain Photo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="text-center md:text-left flex-grow">
+                        <span class="bg-[#050C16] text-white text-[8px] font-black uppercase tracking-[2px] px-3 py-1 rounded-full">Vice Captain</span>
+                        <h3 class="text-2xl md:text-3xl font-black uppercase text-[#050C16] mt-3">Tony</h3>
+                        <p class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-6">The Strategic Support</p>
+                        
+                        <a href="https://wa.me/919776329060" target="_blank" class="inline-flex items-center gap-3 bg-[#25D366] text-white px-6 py-3 rounded-sm text-[10px] font-black uppercase tracking-widest hover:shadow-lg transition-all active:scale-95">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-16">
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-[#050C16]">Our <span class="gold-gradient">Supporters</span></h2>
+        </div>
+
+        <div class="mb-10">
+            <div class="px-6 mb-4"><span class="text-[10px] font-black uppercase tracking-[4px] text-gray-400">Local League Supporters</span></div>
+            <div class="swiper supporter-swiper scroll-local">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Mandapada Village</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Dasarathipatna village</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Harinathapur village</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Mandapada Village</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Dasarathipatna village</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Harinathapur village</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="px-6 mb-4"><span class="text-[10px] font-black uppercase tracking-[4px] text-gray-400">Society League Supporters</span></div>
+            <div class="swiper supporter-swiper scroll-society">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Tulasipur Chrstian Sahi</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Makarbag Sahi</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Sutahat Sahi</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Bahilpada</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Dharmapur</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Jambu</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Khanditar</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Parbatia</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Peyton Sahi</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Stweartpatna</div></div>
+                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Cuttack Chandi Christian Sahi</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="policy-details" class="py-20 bg-gray-50 border-t border-[#050C16]/5">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div>
+                <h3 class="font-premium text-2xl font-bold text-[#050C16] uppercase mb-6 tracking-tighter">Privacy <span class="gold-gradient">Policy</span></h3>
+                <div class="space-y-4 text-gray-500 text-sm leading-relaxed">
+                    <p>We value your privacy. McMillan Patna ensures that any data collected through our portal is used solely for club communications, membership verification, and tournament registrations. We do not sell or share your personal information with third-party marketers.</p>
+                    <p>Cookies may be used to enhance your browsing experience, but they are never used to track sensitive personal data.</p>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-premium text-2xl font-bold text-[#050C16] uppercase mb-6 tracking-tighter">Terms <span class="gold-gradient">of Use</span></h3>
+                <div class="space-y-4 text-gray-500 text-sm leading-relaxed">
+                    <p>By accessing this portal, you agree to respect the heritage and discipline of McMillan Patna. Any misuse of the club's branding, logos, or player information without official consent is strictly prohibited.</p>
+                    <p>Players and members must adhere to the club's code of conduct during tournaments and on-field activities representing the Mandapada soil.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#F9FAFB] border-t border-[#050C16]/5 pt-20 pb-10 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+                <div class="md:col-span-2">
+                    <div class="flex flex-col mb-6">
+                        <img src="https://i.postimg.cc/tJ6J8FC1/logo.png" class="h-14 w-fit mb-4">
+                        <h3 class="font-premium text-lg font-bold text-[#050C16] uppercase tracking-tighter">
+                            McMILLAN <span class="gold-gradient">PATNA</span>
+                        </h3>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-sm leading-relaxed mb-8">
+                        The ultimate destination for cricket excellence in Mandapada. We are not just a club; we are a legacy built on the soil of Odisha.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="javascript:void(0)" onclick="if(this.getAttribute('href') !== 'javascript:void(0)') window.open(this.href, '_blank');" class="social-icon-btn" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="javascript:void(0)" onclick="if(this.getAttribute('href') !== 'javascript:void(0)') window.open(this.href, '_blank');" class="social-icon-btn" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-[#050C16] font-black uppercase text-xs tracking-widest mb-8">Quick Links</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="footer-link text-gray-400 text-sm font-bold uppercase tracking-wider">Home</a></li>
+                        <li><a href="#squad-section" class="footer-link text-gray-400 text-sm font-bold uppercase tracking-wider">Official Squad</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 text-sm font-bold uppercase tracking-wider">Tournament</a></li>
+                        <li><a href="Https://wa.me/message/6CJSZSPPROGGK1" target="_blank" class="footer-link text-gray-400 text-sm font-bold uppercase tracking-wider">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-[#050C16] font-black uppercase text-xs tracking-widest mb-8">Base Location</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="font-bold uppercase tracking-wider text-[#050C16]/60">Cuttack, Odisha</li>
+                        <li class="font-bold uppercase tracking-wider text-[#050C16]/60">Mandapada Ground</li>
+                        </ul>
+                </div>
+            </div>
+
+            <div class="pt-10 border-t border-[#050C16]/5 flex flex-col items-center justify-center gap-6 text-center">
+                <p class="text-[9px] text-gray-400 font-bold uppercase tracking-[4px]">
+                    &copy; 2026 McMILLAN PATNA • DESIGN & DEVELOPED BY MAYANK PRADHAN
+                </p>
+                <div class="flex gap-6">
+                    <a href="#policy-details" class="text-[9px] text-gray-300 font-bold uppercase tracking-[2px] hover:text-[#C5A059] transition-colors">Privacy Policy</a>
+                    <a href="#policy-details" class="text-[9px] text-gray-300 font-bold uppercase tracking-[2px] hover:text-[#C5A059] transition-colors">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".playerSwiper", {
+            slidesPerView: 1.2,
+            spaceBetween: 16,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: ".swiper-next",
+                prevEl: ".swiper-prev",
+            },
+            breakpoints: {
+                768: { slidesPerView: 2.2, spaceBetween: 24 },
+                1024: { slidesPerView: 3.2, spaceBetween: 30 }
+            }
+        });
+
+        const scrollConfig = {
+            slidesPerView: "auto",
+            spaceBetween: 20,
+            loop: true,
+            allowTouchMove: false,
+            speed: 5000,
+            autoplay: { 
+                delay: 0, 
+                disableOnInteraction: false, 
+                pauseOnMouseEnter: false 
+            },
+            freeMode: true,
+            freeModeMomentum: false,
+            observer: true,
+            observeParents: true
+        };
+
+        new Swiper(".scroll-local", scrollConfig);
+
+        new Swiper(".scroll-society", {
+            ...scrollConfig,
+            speed: 8000,
+            autoplay: { 
+                delay: 0, 
+                reverseDirection: true, 
+                disableOnInteraction: false, 
+                pauseOnMouseEnter: false 
+            }
+        });
+    </script>
+</body>
+          </html>
