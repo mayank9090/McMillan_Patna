@@ -167,14 +167,39 @@
             text-transform: uppercase;
         }
 
+        /* --- CONSTANT SCROLL CSS UPDATES --- */
         .supporter-swiper {
             width: 100%;
             padding: 10px 0;
-            pointer-events: none;
+            overflow: hidden;
+            position: relative;
         }
 
-        .supporter-swiper .swiper-wrapper {
-            transition-timing-function: linear !important;
+        /* Continuous Linear Motion force using CSS */
+        .constant-scroll-wrapper {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+        }
+
+        /* Right Scroll Animation: Speed 20s for professional feel */
+        .animate-right-scroll {
+            animation: scrollRight 20s linear infinite;
+        }
+
+        /* Left Scroll Animation for Local League (Added for sync) */
+        .animate-left-scroll {
+            animation: scrollLeft 20s linear infinite;
+        }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+
+        @keyframes scrollLeft {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
         }
 
         .supporter-chip-premium {
@@ -191,6 +216,12 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
             display: inline-flex;
             align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Pause on Hover Logic */
+        .supporter-swiper:hover .constant-scroll-wrapper {
+            animation-play-state: paused;
         }
 
         .footer-link {
@@ -705,33 +736,50 @@
 
         <div class="mb-10">
             <div class="px-6 mb-4"><span class="text-[10px] font-black uppercase tracking-[4px] text-gray-400">Local League Supporters</span></div>
-            <div class="swiper supporter-swiper scroll-local">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Mandapada Village</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Dasarathipatna village</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Harinathapur village</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Mandapada Village</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Dasarathipatna village</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Harinathapur village</div></div>
+            <div class="supporter-swiper">
+                <div class="constant-scroll-wrapper animate-left-scroll">
+                    <div class="supporter-chip-premium">Mandapada Village</div>
+                    <div class="supporter-chip-premium">Dasarathipatna village</div>
+                    <div class="supporter-chip-premium">Harinathapur village</div>
+                    <div class="supporter-chip-premium">Mandapada Village</div>
+                    <div class="supporter-chip-premium">Dasarathipatna village</div>
+                    <div class="supporter-chip-premium">Harinathapur village</div>
+                    <div class="supporter-chip-premium">Mandapada Village</div>
+                    <div class="supporter-chip-premium">Dasarathipatna village</div>
+                    <div class="supporter-chip-premium">Harinathapur village</div>
+                    <div class="supporter-chip-premium">Mandapada Village</div>
+                    <div class="supporter-chip-premium">Dasarathipatna village</div>
+                    <div class="supporter-chip-premium">Harinathapur village</div>
                 </div>
             </div>
         </div>
 
         <div>
             <div class="px-6 mb-4"><span class="text-[10px] font-black uppercase tracking-[4px] text-gray-400">Society League Supporters</span></div>
-            <div class="swiper supporter-swiper scroll-society">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Tulasipur Chrstian Sahi</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Makarbag Sahi</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Sutahat Sahi</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Bahilpada</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Dharmapur</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Jambu</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Khanditar</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Parbatia</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Peyton Sahi</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Stweartpatna</div></div>
-                    <div class="swiper-slide w-auto"><div class="supporter-chip-premium">Cuttack Chandi Christian Sahi</div></div>
+            <div class="supporter-swiper">
+                <div class="constant-scroll-wrapper animate-right-scroll">
+                    <div class="supporter-chip-premium">Tulasipur Christian Sahi</div>
+                    <div class="supporter-chip-premium">Makarbag Christian Sahi</div>
+                    <div class="supporter-chip-premium">Sutahat Christian Sahi</div>
+                    <div class="supporter-chip-premium">Bahilpada Christian Sahi</div>
+                    <div class="supporter-chip-premium">Dharmapur Christian Sahi</div>
+                    <div class="supporter-chip-premium">Jambu Christian Sahi</div>
+                    <div class="supporter-chip-premium">Khanditar Christian Sahi</div>
+                    <div class="supporter-chip-premium">Parbatia Christian Sahi</div>
+                    <div class="supporter-chip-premium">Peyton Christian Sahi</div>
+                    <div class="supporter-chip-premium">Stweartpatna Christian Sahi</div>
+                    <div class="supporter-chip-premium">Cuttack Chandi Christian Sahi</div>
+                    <div class="supporter-chip-premium">Tulasipur Christian Sahi</div>
+                    <div class="supporter-chip-premium">Makarbag Christian Sahi</div>
+                    <div class="supporter-chip-premium">Sutahat Christian Sahi</div>
+                    <div class="supporter-chip-premium">Bahilpada Christian Sahi</div>
+                    <div class="supporter-chip-premium">Dharmapur Christian Sahi</div>
+                    <div class="supporter-chip-premium">Jambu Christian Sahi</div>
+                    <div class="supporter-chip-premium">Khanditar Christian Sahi</div>
+                    <div class="supporter-chip-premium">Parbatia Christian Sahi</div>
+                    <div class="supporter-chip-premium">Peyton Christian Sahi</div>
+                    <div class="supporter-chip-premium">Stweartpatna Christian Sahi</div>
+                    <div class="supporter-chip-premium">Cuttack Chandi Christian Sahi</div>
                 </div>
             </div>
         </div>
@@ -812,23 +860,20 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // 1. POPUP & MUSIC LOGIC (Added)
+        // 1. POPUP & MUSIC LOGIC
         function unlockSite() {
-            // Start Music
             const music = document.getElementById('bgMusic');
             music.play().catch(e => console.log("Interaction required for audio"));
 
-            // Hide Popup with smooth transition
             const popup = document.getElementById('welcome-popup');
             popup.style.transition = "all 0.8s ease";
             popup.style.opacity = "0";
             popup.style.visibility = "hidden";
 
-            // Restore Scroll
             document.body.style.overflowY = "auto";
         }
 
-        // 2. EXISTING SCRIPTS
+        // 2. PLAYER SWIPER
         var swiper = new Swiper(".playerSwiper", {
             slidesPerView: 1.2,
             spaceBetween: 16,
@@ -846,36 +891,6 @@
                 1024: { slidesPerView: 3.2, spaceBetween: 30 }
             }
         });
-
-        const scrollConfig = {
-            slidesPerView: "auto",
-            spaceBetween: 20,
-            loop: true,
-            allowTouchMove: false,
-            speed: 5000,
-            autoplay: { 
-                delay: 0, 
-                disableOnInteraction: false, 
-                pauseOnMouseEnter: false 
-            },
-            freeMode: true,
-            freeModeMomentum: false,
-            observer: true,
-            observeParents: true
-        };
-
-        new Swiper(".scroll-local", scrollConfig);
-
-        new Swiper(".scroll-society", {
-            ...scrollConfig,
-            speed: 8000,
-            autoplay: { 
-                delay: 0, 
-                reverseDirection: true, 
-                disableOnInteraction: false, 
-                pauseOnMouseEnter: false 
-            }
-        });
     </script>
 </body>
-</html>
+    </html>
